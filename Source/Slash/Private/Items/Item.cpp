@@ -2,6 +2,10 @@
 
 
 #include "Items/Item.h"
+#include "DrawDebugHelpers.h"
+#include "Slash/Slash.h"
+
+#define THIRTY 30
 
 AItem::AItem()
 {
@@ -18,6 +22,13 @@ void AItem::BeginPlay()
 	{
 		GEngine->AddOnScreenDebugMessage(1, 60.f, FColor::Cyan, FString("Item OnScreen Message!"));
 	}
+
+	UWorld* World = GetWorld();
+
+	FVector Location = GetActorLocation();
+	DRAW_SPHERE(Location)
+
+	
 }
 
 void AItem::Tick(float DeltaTime)
