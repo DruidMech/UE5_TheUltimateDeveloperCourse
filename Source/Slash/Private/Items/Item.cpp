@@ -2,10 +2,7 @@
 
 
 #include "Items/Item.h"
-#include "DrawDebugHelpers.h"
-#include "Slash/Slash.h"
-
-#define THIRTY 30
+#include "Slash/DebugMacros.h"
 
 AItem::AItem()
 {
