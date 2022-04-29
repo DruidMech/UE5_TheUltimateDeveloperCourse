@@ -14,9 +14,10 @@ void AItem::BeginPlay()
 	Super::BeginPlay();
 
 	UWorld* World = GetWorld();
+
+	SetActorLocation(FVector(0.f, 0.f, 50.f));
 	FVector Location = GetActorLocation();
 	FVector Forward = GetActorForwardVector();
-
 	DRAW_SPHERE(Location);
 	//DRAW_LINE(Location, Location + Forward * 100.f);
 	//DRAW_POINT(Location + Forward * 100.f);
