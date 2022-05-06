@@ -4,6 +4,7 @@
 #include "Characters/SlashCharacter.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 ASlashCharacter::ASlashCharacter()
 {
@@ -12,6 +13,9 @@ ASlashCharacter::ASlashCharacter()
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
+
+	GetCharacterMovement()->bOrientRotationToMovement = true;
+	GetCharacterMovement()->RotationRate = FRotator(0.f, 400.f, 0.f);
 
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	CameraBoom->SetupAttachment(GetRootComponent());
@@ -48,8 +52,12 @@ void ASlashCharacter::MoveForward(float Value)
 {
 	if (Controller && (Value != 0.f))
 	{
-		FVector Forward = GetActorForwardVector();
-		AddMovementInput(Forward, Value);
+		// find out which way is forward
+		const FRotator ControlRotation = GetControlRotation();
+		const FRotator YawRotation(0.f, ControlRotation.Yaw, 0.f);
+
+		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+		AddMovementInput(Direction, Value);
 	}
 }
 
@@ -57,8 +65,12 @@ void ASlashCharacter::MoveRight(float Value)
 {
 	if (Controller && (Value != 0.f))
 	{
-		FVector Right = GetActorRightVector();
-		AddMovementInput(Right, Value);
+		// find out which way is right
+		const FRotator ControlRotation = GetControlRotation();
+		const FRotator YawRotation(0.f, ControlRotation.Yaw, 0.f);
+
+		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+		AddMovementInput(Direction, Value);
 	}
 }
 
