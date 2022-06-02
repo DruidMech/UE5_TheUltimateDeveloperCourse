@@ -20,6 +20,8 @@ public:
 	AWeapon();
 	void Equip(USceneComponent* InParent, FName InSocketName);
 	void AttachMeshToSocket(USceneComponent* InParent, const FName& InSocketName);
+
+	TArray<AActor*> IgnoreActors;
 protected:
 	virtual void BeginPlay() override;
 
