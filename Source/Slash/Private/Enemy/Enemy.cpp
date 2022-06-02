@@ -64,6 +64,14 @@ void AEnemy::GetHit(const FVector& ImpactPoint)
 	// convert from radians to degrees
 	Theta = FMath::RadiansToDegrees(Theta);
 
+	// if CrossProduct points down, Theta should be negative
+	const FVector CrossProduct = FVector::CrossProduct(Forward, ToHit);
+	if (CrossProduct.Z < 0)
+	{
+		Theta *= -1.f;
+	}
+	UKismetSystemLibrary::DrawDebugArrow(this, GetActorLocation(), GetActorLocation() + CrossProduct * 100.f, 5.f, FColor::Blue, 5.f);
+
 	if (GEngine)
 	{
 		GEngine->AddOnScreenDebugMessage(1, 5.f, FColor::Green, FString::Printf(TEXT("Theta: %f"), Theta));
