@@ -159,7 +159,6 @@ void AEnemy::PawnSeen(APawn* SeenPawn)
 		GetCharacterMovement()->MaxWalkSpeed = 300.f;
 		CombatTarget = SeenPawn;
 		MoveToTarget(CombatTarget);
-		UE_LOG(LogTemp, Warning, TEXT("Seen Pawn, now Chasing"));
 	}
 }
 
@@ -201,11 +200,15 @@ void AEnemy::CheckCombatTarget()
 {
 	if (!InTargetRange(CombatTarget, CombatRadius))
 	{
+		// Outside combat radius, lose interest
 		CombatTarget = nullptr;
 		if (HealthBarWidget)
 		{
 			HealthBarWidget->SetVisibility(false);
 		}
+		EnemyState = EEnemyState::EES_Patrolling;
+		GetCharacterMovement()->MaxWalkSpeed = 125.f;
+		MoveToTarget(PatrolTarget);
 	}
 }
 
