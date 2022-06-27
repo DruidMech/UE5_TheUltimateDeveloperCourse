@@ -80,6 +80,8 @@ protected:
 	bool InTargetRange(AActor* Target, double Radius);
 	void MoveToTarget(AActor* Target);
 	AActor* ChoosePatrolTarget();
+	virtual void Attack() override;
+	virtual void PlayAttackMontage() override;
 
 	UFUNCTION()
 	void PawnSeen(APawn* SeenPawn);
