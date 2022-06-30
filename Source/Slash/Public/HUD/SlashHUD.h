@@ -20,5 +20,6 @@ private:
 
 	UPROPERTY()
 	USlashOverlay* SlashOverlay;
-	
+public:
+	FORCEINLINE USlashOverlay* GetSlashOverlay() const { return SlashOverlay; }
 };
